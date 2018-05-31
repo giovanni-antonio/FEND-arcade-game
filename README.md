@@ -11,9 +11,18 @@ Very straight forward, here are some of the rules of this lite version of the ga
 #### HOW TO PLAY?
 - Move player horizontaly using left/right arrow keys on your keyboard.
 - Move player vericaly using up/down arrow keys on your keyboard.
-- Avoid bugs from hitting you, you got only 5 lives, if you got hit, you lose one life :( 
+- Avoid bugs from hitting you, you only have 5 lives, if you got hit, you lose one life :( 
 - Reach water (top) to earn 100pts and advance to the next level.
 - That's it! Good luck!
+
+## TO-DO
+- Add player menu to get other player characters
+- Add collectable items for bonus points
+- Add bonus life
+- Add stars rating base on levels completed, time and lives
+- Add more obstacles
+- Add dificulty levels
+- any ideas...
 
 ## Support 
 - JavaScript needs to be enable. 

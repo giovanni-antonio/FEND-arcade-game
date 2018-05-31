@@ -7,7 +7,7 @@
 ******************************/
 
 body {
-    background-color: #FAFAFA;
+    background-color: rgba(80, 104, 211, 0.774);
     margin: 0;
     padding: 0;
     width: 100%;
@@ -32,6 +32,7 @@ button {
     padding: 0.5em;
     width: 200px;
     font-size: 24px;
+    text-shadow: 1px 2px 0 #141414;
     cursor: pointer;
     opacity: 0.9;
     -webkit-transform: translateY(0);
@@ -105,7 +106,7 @@ ul {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    background-color: rgba(250, 250, 250, 0.99);
+    background-color: rgba(80, 104, 211, 0.9);
     color: rgb(15, 15, 15);
     visibility: hidden;
     opacity: 0;
@@ -126,19 +127,21 @@ ul {
     -webkit-transition: all 0.5s ease 0.1s;
     transition: all 0.5s ease 0.1s;
 }
-
+.modal__screen h1, .modal__screen h2 {
+    text-shadow: 1px 2px 0 #141414;
+}
 .modal__screen--green {
-    background-color: #4b985c;
+    background-color: rgba(75, 152, 92, 0.9);
     color: #fff;
 }
 
 .modal__screen--blue {
-    background-color: #5067d3;
+    background-color: rgba(80, 104, 211, 0.9);
     color: #fff;
 }
 
 .modal__screen--red {
-    background-color: #d76c38;
+    background-color: rgba(215, 108, 54, 0.9);
     color: rgb(255, 255, 255);
 }
 
@@ -192,6 +195,8 @@ ul {
     width: 148px;
     padding: 1em;
     font-family: 'Luckiest Guy', cursive;
+    color: #fff;
+    text-shadow: 1px 2px 0px black;
 }
 
 /* GAMEOVER */
@@ -233,6 +238,8 @@ header nav {
 header span {
     text-align: left;
     font-family: "Luckiest Guy", cursive;
+    color: #fff;
+    text-shadow: 1px 2px 0px black;
 }
 
 header nav {
@@ -255,11 +262,11 @@ nav a {
 }
 
 a span:hover {
-    background-color: #5067d3;
+    background-color: #0026cf;
 }
 
 .icon:hover {
-    fill: #5067d3;
+    fill: #0026cf;
 }
 
 .icon-help {
@@ -288,8 +295,9 @@ a span:hover {
 #help:target {
     visibility: visible;
     opacity: 1;
-    z-index: 1000;
+    z-index: 2000;
 }
+
 /* RWD */
 @media screen and (max-width: 1024px){
     canvas {

@@ -17,9 +17,11 @@ Enemy.prototype.update = function (dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     if (this.x > WIDTH) {
-        this.x = -(getRandomIntInclusive(gutter, gutter * 4));
+        this.x = -(getRandomIntInclusive(gutter, gutter * 5)); // gutter is a global variable that sets the spacing 
     }
-    this.x += this.speed * dt + this.speed;
+    // this set a random speed for every bug so watch out for speedy bugs if game is too fast lower the rate here
+    let speedRate = 6; // change rate if too fast, you can set it to as low as 2
+    this.x += this.speed * getRandomIntInclusive(dt, speedRate);
 };
 
 // Draw the enemy on the screen, required method for game

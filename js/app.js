@@ -43,8 +43,8 @@ let enemiesLenght = 3;
 for (let i = 0; i < enemiesLenght; i++) {
     let x = TILE_WIDTH * 2 * i;
     enemies0[i] = new Enemy(x, TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, 1);
-    enemies1[i] = new Enemy(x - TILE_WIDTH, TILE_HEIGHT * 2, TILE_WIDTH, TILE_HEIGHT, 1);
-    enemies2[i] = new Enemy(x, TILE_HEIGHT * 3, TILE_WIDTH, TILE_HEIGHT, 1);
+    enemies1[i] = new Enemy(x - TILE_WIDTH, TILE_HEIGHT * 2, TILE_WIDTH, TILE_HEIGHT, 2);
+    enemies2[i] = new Enemy(x, TILE_HEIGHT * 3, TILE_WIDTH, TILE_HEIGHT, 1.5);
     enemies3[i] = new Enemy(x - TILE_WIDTH, TILE_HEIGHT * 4, TILE_WIDTH, TILE_HEIGHT, 1);
 }
 
