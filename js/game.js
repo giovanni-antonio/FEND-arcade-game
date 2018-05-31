@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function (x, y, w, h, speed) {
+let Enemy = function (x, y, w, h, speed) {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -30,7 +30,7 @@ Enemy.prototype.render = function () {
 // Player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function (x, y, w, h) {
+let Player = function (x, y, w, h) {
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
@@ -77,7 +77,7 @@ Player.prototype.resetGame = function () {
 }
 
 Player.prototype.resetPosition = function () {
-    this.x = (WIDTH - GRID_WIDTH) / 2;
+    this.x = (WIDTH - this.w) / 2;
     this.y = HEIGHT - this.h;
 }
 
@@ -137,31 +137,5 @@ Player.prototype.handleInput = function (key) {
             break;
         default:
             break;
-    }
-}
-
-// Lanes class 
-// This class requires y-coordinata, count number of enemies to draw, spacing
-// between enemies, and the speed to update an Enemy object
-var Lane = function (y, count, spacing, speed) {
-    this.y = y;
-    this.enemies = [];
-    // var dificulty = speed + dificultyLevel / 2;
-    for (var i = 0; i < count; i++) {
-        // var x = getRandomIntInclusive(spacing, spacing * i) * i;
-        var x = spacing * i;
-        this.enemies.push(new Enemy(x, y, GRID_WIDTH, GRID_HEIGHT, speed));
-    }
-}
-
-Lane.prototype.render = function () {
-    for (var i = 0; i < this.enemies.length; i++) {
-        this.enemies[i].render();
-    }
-}
-
-Lane.prototype.update = function (dt) {
-    for (var i = 0; i < this.enemies.length; i++) {
-        this.enemies[i].update(dt);
     }
 }

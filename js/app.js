@@ -1,41 +1,64 @@
-var rows = 6;
-var cols = 5;
-var GRID_HEIGHT = 83;
-var GRID_WIDTH = 101;
-var WIDTH = GRID_WIDTH * cols;
-var HEIGHT = GRID_HEIGHT * rows;
+/**
+ * 
+ * Author : Giovanni De andre 
+ * v1.0
+ * 05/2018
+ * 
+ */
+// Set globals 
+const ROWS = 6;
+const COLS = 5;
+const TILE_HEIGHT = 83;
+const TILE_WIDTH = 101;
+const WIDTH = TILE_WIDTH * COLS;
+const HEIGHT = TILE_HEIGHT * ROWS;
+let isRunning = false; // is game on/off
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-let player = new Player((WIDTH - GRID_WIDTH) / 2, HEIGHT - GRID_HEIGHT, GRID_WIDTH, GRID_HEIGHT);
-// allEnemies: list of enemies per lane starts with 2 on each at a different spped.
-var gutter = GRID_WIDTH * 2; // set spacing between enemies
+let player = new Player((WIDTH - TILE_WIDTH) / 2, HEIGHT - TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 
-// Dificulty : add dificulty every 5th level completed
-var DIFICULTY = 5;
-var addDificulty = 5; // Add dificulty level to lane 2 and 3
-var incrementSpeedLevel = 0.5;
+const gutter = TILE_WIDTH * 2; // set spacing between enemies
 
-let allEnemies = [
-    new Lane(GRID_HEIGHT, 3, gutter, 1 + incrementSpeedLevel),
-    new Lane(2 * GRID_HEIGHT, 4, gutter, 0.5 + incrementSpeedLevel),
-    new Lane(3 * GRID_HEIGHT, 3, gutter, 1.5 + incrementSpeedLevel),
-    new Lane(4 * GRID_HEIGHT, 3, gutter, 0.5 + incrementSpeedLevel)
-];
+/* TODO: game dificulty
+* Dificulty : add dificulty every 5th level completed
+* const DIFICULTY_VALUE = 5;
+* let dificulty = 5; 
+* Add dificulty level to enemies stack 2 and 3
+* let incrementSpeedLevel = 0.5;
+* if (game leveld === dificulty) {
+*     dificulty += DIFICULTY_VALUE;
+*     incrementSpeedLevel++;
+* }*/
 
-
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+// Set enemies stack:
+// [enemy1 , enemy2, enemy3] 3 per row in a grid of 3 x 4 = 12 enemies total
+let enemies0 = [];
+let enemies1 = [];
+let enemies2 = [];
+let enemies3 = [];
+let allEnemies = []; // to then add all the enemies
+let enemiesLenght = 3;
+for (let i = 0; i < enemiesLenght; i++) {
+    let x = TILE_WIDTH * 2 * i;
+    enemies0[i] = new Enemy(x, TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, 1);
+    enemies1[i] = new Enemy(x - TILE_WIDTH, TILE_HEIGHT * 2, TILE_WIDTH, TILE_HEIGHT, 1);
+    enemies2[i] = new Enemy(x, TILE_HEIGHT * 3, TILE_WIDTH, TILE_HEIGHT, 1);
+    enemies3[i] = new Enemy(x - TILE_WIDTH, TILE_HEIGHT * 4, TILE_WIDTH, TILE_HEIGHT, 1);
 }
 
-// This listens for key presses and sends the keys to your
+allEnemies.push(...enemies0, ...enemies1, ...enemies2, ...enemies3);
+
+/**
+ * Game UI: here is handle all the user interface components to play the game.
+ * Starts with the timer and then the game stages, scores and events and controls. 
+ */
+
+ // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function (e) {
-    var allowedKeys = {
+    let allowedKeys = {
         37: 'left',
         38: 'up',
         39: 'right',
@@ -45,15 +68,15 @@ document.addEventListener('keyup', function (e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-// Start GAME
-var isRunning = false;
-var gameTimeID = null;
+let gameTimeID = null; // to track time
 
-var sec = 0,
-    min = 0,
-    hour = 0;
+let sec = 0, // seconds
+    min = 0, // minutes
+    hour = 0; // hours
+
+// Call to initialize timer
 function timer() {
-    // console.log(`${hour}h:${min}m:${sec}s`);
+    // Display time
     document.querySelector('.timer').textContent = `${hour}:${min}:${sec}`;
     if (sec++ === 59) {
         sec = 0;
@@ -72,48 +95,49 @@ function timer() {
     }, 1000);
 
 }
-
+/**
+ * 
+ * @param {*} el pass element to remove from screen
+ */
 function removeModal(el) {
     document.querySelector('.modal').classList.remove('show');
     document.querySelector(el).classList.remove('show');
 }
-
+/**
+ * 
+ * @param {*} el pass element to show in screen
+ */
 function showModal(el) {
     document.querySelector('.modal').classList.add('show');
     document.querySelector(el).classList.add('show');
 }
-
+// Call to play start playing game
 function playGame() {
     removeModal('.modal .play-screen');
     isRunning = true;
     timer();
 }
-
+// Call to display winner stage
 function displayWinLevel() {
     showModal('.modal .play-level');
 }
-
+// Call to display game over stage
 function displayGameOver() {
     showModal('.modal .game-over');
 }
-
+// Call to update all player progress stats 
 function updateGameStats() {
-    var pointsEl = document.querySelectorAll('.points');
-    var levelsEl = document.querySelectorAll('.levels');
-    var livesEl = document.querySelector('.lives');
-    // if game running  update game scores
-    if (isRunning){
+    let pointsEl = document.querySelectorAll('.points');
+    let levelsEl = document.querySelectorAll('.levels');
+    let livesEl = document.querySelector('.lives');
+    // if game running update game scores
+    if (isRunning) {
         pointsEl[0].textContent = player.points;
         pointsEl[1].textContent = player.points;
         levelsEl[0].textContent = player.levels;
         levelsEl[1].textContent = player.levels;
         levelsEl[2].textContent = player.levels;
         livesEl.textContent = player.lives;
-        if (player.levels === addDificulty) {
-            addDificulty += DIFICULTY;
-            incrementSpeedLevel++;
-        }
-        
     }
 }
 
@@ -137,3 +161,19 @@ document.querySelector('.game-over button').addEventListener('click', function (
     removeModal('.modal .game-over');
     showModal('.modal .play-screen');
 });
+
+/**
+ * HELPERS
+ */
+/**
+ * To get a random integer tutorial from
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+ * @param {*} min pass the lowest number to target
+ * @param {*} max pass the highest number to target
+ */
+
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+}

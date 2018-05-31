@@ -100,14 +100,8 @@ var Engine = (function (global) {
     }
 
     function checkCollisions() {
-        var enemies = [];
-        for (var i = 0; i < allEnemies.length; i++) {
-            for (var j = 0; j < allEnemies[i].enemies.length; j++) {
-                enemies.push(allEnemies[i].enemies[j]);
-            }
-        }
-        enemies.forEach(function (e) {
-            if (player.collision(e)) {
+        allEnemies.forEach((enemy)=>{
+            if (player.collision(enemy)){
                 player.countLives();
                 player.resetPosition();
             }
