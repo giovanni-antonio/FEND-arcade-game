@@ -22,15 +22,15 @@ let player = new Player((WIDTH - TILE_WIDTH) / 2, HEIGHT - TILE_HEIGHT, TILE_WID
 const gutter = TILE_WIDTH * 2; // set spacing between enemies
 
 /* TODO: game dificulty
-* Dificulty : add dificulty every 5th level completed
-* const DIFICULTY_VALUE = 5;
-* let dificulty = 5; 
-* Add dificulty level to enemies stack 2 and 3
-* let incrementSpeedLevel = 0.5;
-* if (game leveld === dificulty) {
-*     dificulty += DIFICULTY_VALUE;
-*     incrementSpeedLevel++;
-* }*/
+ * Dificulty : add dificulty every 5th level completed
+ * const DIFICULTY_VALUE = 5;
+ * let dificulty = 5; 
+ * Add dificulty level to enemies stack 2 and 3
+ * let incrementSpeedLevel = 0.5;
+ * if (game leveld === dificulty) {
+ *     dificulty += DIFICULTY_VALUE;
+ *     incrementSpeedLevel++;
+ * }*/
 
 // Set enemies stack:
 // [enemy1 , enemy2, enemy3] 3 per row in a grid of 3 x 4 = 12 enemies total
@@ -55,7 +55,7 @@ allEnemies.push(...enemies0, ...enemies1, ...enemies2, ...enemies3);
  * Starts with the timer and then the game stages, scores and events and controls. 
  */
 
- // This listens for key presses and sends the keys to your
+// This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function (e) {
     let allowedKeys = {
@@ -77,7 +77,11 @@ let sec = 0, // seconds
 // Call to initialize timer
 function timer() {
     // Display time
-    document.querySelector('.timer').textContent = `${hour}:${min}:${sec}`;
+    let timeEl = document.querySelectorAll('.timer');
+    let timeToText = `${hour < 10 ? '0' + hour : hour}:${min < 10 ? '0' + min : min}:${sec < 10 ? '0'+ sec : sec}`;
+    timeEl[0].textContent = timeToText;
+    timeEl[1].textContent = timeToText;
+
     if (sec++ === 59) {
         sec = 0;
         min++;
