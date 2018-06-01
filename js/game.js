@@ -1,3 +1,4 @@
+'use strict';
 // Enemies our player must avoid
 let Enemy = function (x, y, w, h, speed) {
     // The image/sprite for our enemies, this uses

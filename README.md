@@ -1,14 +1,20 @@
-# Frogger arcade-game
-Frogger is an arcade game develop by Konami in the early 80s. [wikipidia frogger](https://en.wikipedia.org/wiki/Frogger)
+# Frogger arcade game clone
+Frogger is an arcade game develop by Konami in the early 80s. [Frogger Arcade Game Wikipidia.org](https://en.wikipedia.org/wiki/Frogger)
 
-This version is a clone of the original, written with javaScript. The starter code was provided by Udacity as well as the sprites/game assets. Part of the excercise was to implement OOP (object-oriented programming) programming, learned from JS lessons.
-
-**DISCLAIMER:** By no means I'm a game developer/designer or an avid gamer although I have learn so much from this exercise and there is so much to learn from this experience. So I encourage you to [please help me improve my skills with constructive feedback, I would appreciate that.](mailto:hello.giolara@gmail.com)  
+This version is a clone of the original, written with javaScript. The starter code was provided by Udacity as well as the sprites/game assets. Part of the excercise was to implement OOP (object-oriented programming) programming, learned from JavaScript lessons.  
 
 ## Instructions 
-Very straight forward, here are some of the rules of this lite version of the game, but for future iterations more features can be added to the base code.
+Very straight forward, here are the installation instructions and game rules of this lite version of the game, but for future iterations more features will be added.
+
+#### INSTALL
+
+- Download the ZIP or clone the repository.
+    - Unzip the repo (if you Download ZIP)
+    - Open the `index.html` file on your browser. See support.  
+- Or play it here online [Frogger Reboot](http://giovannilara.com/FEND-arcade-game/)
 
 #### HOW TO PLAY?
+
 - Move player horizontaly using left/right arrow keys on your keyboard.
 - Move player vericaly using up/down arrow keys on your keyboard.
 - Avoid bugs from hitting you, you only have 5 lives, if you got hit, you lose one life :( 
@@ -16,6 +22,7 @@ Very straight forward, here are some of the rules of this lite version of the ga
 - That's it! Good luck!
 
 ## TO-DO
+
 - Add player menu to get other player characters
 - Add collectable items for bonus points
 - Add bonus life
@@ -25,8 +32,9 @@ Very straight forward, here are some of the rules of this lite version of the ga
 - any ideas...
 
 ## Support 
+
 - JavaScript needs to be enable. 
-- Only works with the latest browsers, those that support canvas API.
+- Only works with the latest browsers, those that support HTML5 and canvas API.
 - NO support for mobile devices :( YET.
 
 ## Contribute
