@@ -34,22 +34,17 @@ const GUTTER = TILE_WIDTH * 2; // set spacing between enemies
  * }*/
 
 // Set enemies stack:
-// [enemy1 , enemy2, enemy3] 3 per row in a grid of 3 x 4 = 12 enemies total
-let enemies0 = [];
-let enemies1 = [];
-let enemies2 = [];
-let enemies3 = [];
-let allEnemies = []; // to then add all the enemies
-let enemiesLenght = 3;
-for (let i = 0; i < enemiesLenght; i++) {
-    let x = TILE_WIDTH * 2 * i;
-    enemies0[i] = new Enemy(x, TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
-    enemies1[i] = new Enemy(x - TILE_WIDTH, TILE_HEIGHT * 2, TILE_WIDTH, TILE_HEIGHT);
-    enemies2[i] = new Enemy(x, TILE_HEIGHT * 3, TILE_WIDTH, TILE_HEIGHT);
-    enemies3[i] = new Enemy(x - TILE_WIDTH, TILE_HEIGHT * 4, TILE_WIDTH, TILE_HEIGHT);
+// [enemy1 , enemy2, enemy3] 3 per lane in a grid of 3 x 4 = 12 enemies total
+let lanes = 4; // each lane has
+let enemies = 3; // 3 enemies
+let allEnemies = []; // add all the enemies
+// Loop create grid of enemies objects
+for (let i = 0; i < lanes; i++) {
+    for (let j = 0; j < enemies; j++) {
+        let x = TILE_WIDTH * 2 * i;
+        allEnemies.push(new Enemy(x, TILE_HEIGHT * (i + 1), TILE_WIDTH, TILE_HEIGHT));
+    }
 }
-
-allEnemies.push(...enemies0, ...enemies1, ...enemies2, ...enemies3);
 
 /**
  * Game UI: here is handle all the user interface components to play the game.
