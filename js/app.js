@@ -1,12 +1,12 @@
 'use strict';
 /**
- * 
- * Author : Giovanni De andre 
+ *
+ * Author : Giovanni De andre
  * v1.0
  * 05/2018
- * 
+ *
  */
-// Set globals 
+// Set globals
 const ROWS = 6;
 const COLS = 5;
 const TILE_HEIGHT = 83;
@@ -20,12 +20,12 @@ let isRunning = false; // is game on/off
 // Place the player object in a variable called player
 let player = new Player((WIDTH - TILE_WIDTH) / 2, HEIGHT - TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 
-const gutter = TILE_WIDTH * 2; // set spacing between enemies
+const GUTTER = TILE_WIDTH * 2; // set spacing between enemies
 
 /* TODO: game dificulty
  * Dificulty : add dificulty every 5th level completed
  * const DIFICULTY_VALUE = 5;
- * let dificulty = 5; 
+ * let dificulty = 5;
  * Add dificulty level to enemies stack 2 and 3
  * let incrementSpeedLevel = 0.5;
  * if (game leveld === dificulty) {
@@ -43,17 +43,17 @@ let allEnemies = []; // to then add all the enemies
 let enemiesLenght = 3;
 for (let i = 0; i < enemiesLenght; i++) {
     let x = TILE_WIDTH * 2 * i;
-    enemies0[i] = new Enemy(x, TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, 1);
-    enemies1[i] = new Enemy(x - TILE_WIDTH, TILE_HEIGHT * 2, TILE_WIDTH, TILE_HEIGHT, 2);
-    enemies2[i] = new Enemy(x, TILE_HEIGHT * 3, TILE_WIDTH, TILE_HEIGHT, 1.5);
-    enemies3[i] = new Enemy(x - TILE_WIDTH, TILE_HEIGHT * 4, TILE_WIDTH, TILE_HEIGHT, 1);
+    enemies0[i] = new Enemy(x, TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+    enemies1[i] = new Enemy(x - TILE_WIDTH, TILE_HEIGHT * 2, TILE_WIDTH, TILE_HEIGHT);
+    enemies2[i] = new Enemy(x, TILE_HEIGHT * 3, TILE_WIDTH, TILE_HEIGHT);
+    enemies3[i] = new Enemy(x - TILE_WIDTH, TILE_HEIGHT * 4, TILE_WIDTH, TILE_HEIGHT);
 }
 
 allEnemies.push(...enemies0, ...enemies1, ...enemies2, ...enemies3);
 
 /**
  * Game UI: here is handle all the user interface components to play the game.
- * Starts with the timer and then the game stages, scores and events and controls. 
+ * Starts with the timer and then the game stages, scores and events and controls.
  */
 
 // This listens for key presses and sends the keys to your
@@ -101,7 +101,7 @@ function timer() {
 
 }
 /**
- * 
+ *
  * @param {*} el pass element to remove from screen
  */
 function removeModal(el) {
@@ -109,7 +109,7 @@ function removeModal(el) {
     document.querySelector(el).classList.remove('show');
 }
 /**
- * 
+ *
  * @param {*} el pass element to show in screen
  */
 function showModal(el) {
@@ -130,7 +130,7 @@ function displayWinLevel() {
 function displayGameOver() {
     showModal('.modal .game-over');
 }
-// Call to update all player progress stats 
+// Call to update all player progress stats
 function updateGameStats() {
     let pointsEl = document.querySelectorAll('.points');
     let levelsEl = document.querySelectorAll('.levels');
@@ -154,7 +154,7 @@ document.querySelector('.play-level button').addEventListener('click', function 
     isRunning = true;
     timer();
 });
-// Quits game 
+// Quits game
 document.getElementById('quitGame').addEventListener('click', function () {
     removeModal('.modal .play-level');
     showModal('.modal .play-screen');
@@ -180,5 +180,5 @@ document.querySelector('.game-over button').addEventListener('click', function (
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }

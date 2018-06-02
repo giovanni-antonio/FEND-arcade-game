@@ -1,6 +1,6 @@
 'use strict';
 // Enemies our player must avoid
-let Enemy = function (x, y, w, h, speed) {
+const Enemy = function (x, y, w, h) {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -8,7 +8,9 @@ let Enemy = function (x, y, w, h, speed) {
     this.y = y;
     this.w = w;
     this.h = h;
-    this.speed = speed;
+    // Set a random speed for every bug so watch out for speedy bugs if game is too fast lower the rate here
+    this.speed = getRandomIntInclusive(202, 303);
+    // TODO: add level dificulty and increase the speed here base on that property
 };
 
 // Update the enemy's position, required method for game
@@ -17,12 +19,11 @@ Enemy.prototype.update = function (dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    // When enemy off-screen set to a random location offset x-coordinate to a random negative number
     if (this.x > WIDTH) {
-        this.x = -(getRandomIntInclusive(gutter, gutter * 5)); // gutter is a global variable that sets the spacing 
+        this.x = -(getRandomIntInclusive(GUTTER, GUTTER * 5)); // gutter is a global variable that sets the spacing
     }
-    // this set a random speed for every bug so watch out for speedy bugs if game is too fast lower the rate here
-    let speedRate = 6; // change rate if too fast, you can set it to as low as 2
-    this.x += this.speed * getRandomIntInclusive(dt, speedRate);
+    this.x += this.speed * dt; // animate velocity of x-coordinate
 };
 
 // Draw the enemy on the screen, required method for game
@@ -33,7 +34,7 @@ Enemy.prototype.render = function () {
 // Player class
 // This class requires an update(), render() and
 // a handleInput() method.
-let Player = function (x, y, w, h) {
+const Player = function (x, y, w, h) {
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
@@ -108,9 +109,9 @@ Player.prototype.constrain = function (target, max, min) {
 /**
  * Detect 2d collision rect w/ rect
  * Base on the mozilla.org tutorial, I adopted to check collision with other
- * objects 
+ * objects
  * https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
- * @param {*} obj 
+ * @param {*} obj
  */
 Player.prototype.collision = function (obj) {
     if (this.x < obj.x + (obj.w / 2) &&
