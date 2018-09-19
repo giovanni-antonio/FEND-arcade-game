@@ -47,6 +47,14 @@ const Player = function (x, y, w, h) {
     this.winLevel = false;
 }
 
+Player.prototype.setPlayerSprite = function (sprite) {
+    this.sprite = sprite;
+}
+
+Player.prototype.getPlayerSprite = function () {
+    return this.sprite;
+}
+
 Player.prototype.update = function () {
     this.advanceLevel();
 }
@@ -86,7 +94,7 @@ Player.prototype.resetPosition = function () {
 }
 
 Player.prototype.render = function () {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.getPlayerSprite()), this.x, this.y);
 }
 
 /**
@@ -142,4 +150,8 @@ Player.prototype.handleInput = function (key) {
         default:
             break;
     }
+}
+
+Player.prototype.handlePlayerSelection = function (imgSrc) {
+    this.setPlayerSprite(imgSrc);
 }

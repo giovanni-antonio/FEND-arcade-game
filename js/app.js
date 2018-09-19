@@ -58,13 +58,18 @@ document.addEventListener('keyup', function (e) {
         37: 'left',
         38: 'up',
         39: 'right',
-        40: 'down'
+        40: 'down',
+        65: 'left',
+        87: 'up',
+        68: 'right',
+        83: 'down'
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-let gameTimeID = null; // to track time
+let gameTimeID = null;
+let timeEl = document.querySelectorAll('.timer');
 
 let sec = 0, // seconds
     min = 0, // minutes
@@ -73,7 +78,6 @@ let sec = 0, // seconds
 // Call to initialize timer
 function timer() {
     // Display time
-    let timeEl = document.querySelectorAll('.timer');
     let timeToText = `${hour < 10 ? '0' + hour : hour}:${min < 10 ? '0' + min : min}:${sec < 10 ? '0'+ sec : sec}`;
     timeEl[0].textContent = timeToText;
     timeEl[1].textContent = timeToText;
@@ -95,6 +99,28 @@ function timer() {
     }, 1000);
 
 }
+
+function startTimer() {
+    if (!isRunning) {
+        isRunning = true;
+        timer();
+    }
+}
+
+function stopTimer() {
+    isRunning = false;
+    clearTimeout(gameTimeID);
+}
+
+function resetTimer() {
+    timeEl[0].textContent = '00:00:00';
+    timeEl[1].textContent = '00:00:00';
+    sec = 0;
+    min = 0;
+    hour = 0;
+    gameTimeID = null;
+}
+
 /**
  *
  * @param {*} el pass element to remove from screen
@@ -103,6 +129,7 @@ function removeModal(el) {
     document.querySelector('.modal').classList.remove('show');
     document.querySelector(el).classList.remove('show');
 }
+
 /**
  *
  * @param {*} el pass element to show in screen
@@ -111,20 +138,37 @@ function showModal(el) {
     document.querySelector('.modal').classList.add('show');
     document.querySelector(el).classList.add('show');
 }
+
 // Call to play start playing game
 function playGame() {
     removeModal('.modal .play-screen');
-    isRunning = true;
-    timer();
+    startTimer();
 }
+
 // Call to display winner stage
 function displayWinLevel() {
-    showModal('.modal .play-level');
+    if(player.winLevel) {
+        showModal('.modal .play-level');
+        player.winLevel = false;
+        stopTimer();
+    }
 }
+
 // Call to display game over stage
 function displayGameOver() {
-    showModal('.modal .game-over');
+    if(player.lives === 0) {
+        showModal('.modal .game-over');
+        player.resetGame();
+        stopTimer();
+    }
 }
+
+// Call quit game
+function quitGame() {
+    showModal('.modal .game-over');
+    stopTimer();
+}
+
 // Call to update all player progress stats
 function updateGameStats() {
     let pointsEl = document.querySelectorAll('.points');
@@ -143,24 +187,47 @@ function updateGameStats() {
 
 // Start playing
 document.querySelector('.play-screen button').addEventListener('click', playGame, false);
+
 // Play next level
 document.querySelector('.play-level button').addEventListener('click', function () {
     removeModal('.modal .play-level');
-    isRunning = true;
-    timer();
+    startTimer();
 });
+
 // Quits game
 document.getElementById('quitGame').addEventListener('click', function () {
     removeModal('.modal .play-level');
-    showModal('.modal .play-screen');
-    player.resetGame();
-    isRunning = false;
+    quitGame();
 });
+
 // Go back home / splash screen
 document.querySelector('.game-over button').addEventListener('click', function () {
     removeModal('.modal .game-over');
     showModal('.modal .play-screen');
+    player.resetGame();
+    resetTimer();
 });
+
+/**
+ * Player Picker
+ */
+
+const PLAYERS_LIST = Array.from(document.querySelectorAll('#playersList figure'));
+let last = 0;
+let current = 0;
+for (let i = 0; i < PLAYERS_LIST.length; i++) {
+    PLAYERS_LIST[i].addEventListener('click', function(e){
+        e.preventDefault();
+        current = i;
+        if(last !== current) {
+            PLAYERS_LIST[last].classList.remove('isSelected');
+            PLAYERS_LIST[current].classList.add('isSelected');
+            last = current;
+        }
+        player.handlePlayerSelection(PLAYERS_LIST[current].firstElementChild.getAttribute('src').slice(1));
+        e.target.removeEventListener('click',this, false);
+    });
+}
 
 /**
  * HELPERS

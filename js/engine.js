@@ -172,21 +172,8 @@ var Engine = (function (global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // Play next level
-        if (player.winLevel) {
-            displayWinLevel();
-            player.winLevel = false;
-            // TODO: stop game/time
-            isRunning = false;
-            clearTimeout(gameTimeID);
-        }
-        // Gameover
-        if (player.lives === 0) {
-            displayGameOver();
-            player.resetGame();
-            isRunning = false;
-            clearTimeout(gameTimeID);
-        }
+        displayWinLevel();
+        displayGameOver();
     }
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
@@ -197,7 +184,11 @@ var Engine = (function (global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/char-cat-girl.png',
+        'images/char-princess-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png'
     ]);
     Resources.onReady(init);
 
