@@ -224,7 +224,7 @@ for (let i = 0; i < PLAYERS_LIST.length; i++) {
             PLAYERS_LIST[current].classList.add('isSelected');
             last = current;
         }
-        player.handlePlayerSelection(PLAYERS_LIST[current].firstElementChild.getAttribute('src').slice(1));
+        player.handlePlayerSelection(PLAYERS_LIST[current].firstElementChild.getAttribute('src'));
         e.target.removeEventListener('click',this, false);
     });
 }
